@@ -31,7 +31,7 @@ public class CustomerController {
     }
 
     // Handles HTTP GET requests to /api/customers for retrieving the list of customers.
-    @GetMapping
+    @GetMapping("/viewALlCustomer")
     public List<Customer> getCustomerList(){
         return customerService.getCustomerList();
     }
@@ -48,7 +48,10 @@ public class CustomerController {
     public String updateCustomerDetail(@RequestBody Customer customer){
         return customerService.updateCustomerDetails(customer);
     }
-
+    @DeleteMapping("/deleteCustomer/{id}")
+    public String deleteCustomerByID(@PathVariable int id){
+        return customerService.deleteCustomerByID(id);
+    }
 }
 
 

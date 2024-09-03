@@ -42,5 +42,10 @@ public class CustomerServiceImpl implements CustomerService {
     public String updateCustomerDetails(Customer customer) {
         return customerDao.updateCustomerData(customer);
     }
+
+    @Override
+    public String deleteCustomerByID(int id) {
+        return customerDao.deleteCustomerByID(id);
+    }
 }
 

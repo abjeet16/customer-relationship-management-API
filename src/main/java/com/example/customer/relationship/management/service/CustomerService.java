@@ -11,4 +11,5 @@ public interface CustomerService {
     Customer getCustomerByID(int id);
     String insertMultipleCustomers(List<Customer> customerList);
     String updateCustomerDetails(Customer customer);
+    String deleteCustomerByID(int id);
 }

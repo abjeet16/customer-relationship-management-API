@@ -101,6 +101,30 @@ public class CustomerDao {
         }
         return "Customer details updated";
     }
+    public String deleteCustomerByID(int id) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Customer customer = session.get(Customer.class, id);
+            if (customer != null) {
+                session.delete(customer);
+                transaction.commit();
+                return "Customer details deleted";
+            } else {
+                return "Customer not found with id: " + id;
+            }
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace(); // Consider using a logger here
+            return "Error deleting customer";
+        } finally {
+            session.close();
+        }
+    }
+
 }
 
 
