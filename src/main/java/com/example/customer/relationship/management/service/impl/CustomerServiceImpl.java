@@ -47,5 +47,20 @@ public class CustomerServiceImpl implements CustomerService {
     public String deleteCustomerByID(int id) {
         return customerDao.deleteCustomerByID(id);
     }
+
+    @Override
+    public List<Customer> getCustomerByFirstName(String firstName) {
+        return customerDao.ViewAllCustomerWithName(firstName);
+    }
+
+    @Override
+    public List<Customer> getCustomerByLessAge(int age) {
+        return customerDao.getCustomerByLessThanAge(age);
+    }
+
+    @Override
+    public List<Customer> getCustomerByAge(int age) {
+        return customerDao.getCustomerOfGivenAge(age);
+    }
 }
 

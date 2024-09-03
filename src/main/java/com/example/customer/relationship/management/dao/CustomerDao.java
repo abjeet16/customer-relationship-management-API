@@ -1,6 +1,7 @@
 package com.example.customer.relationship.management.dao;
 
 import com.example.customer.relationship.management.entity.Customer;
+import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -123,6 +124,81 @@ public class CustomerDao {
         } finally {
             session.close();
         }
+    }
+    public List<Customer> ViewAllCustomerWithName(String firstName) {
+        // Initialize the session
+        Session session = sessionFactory.openSession();
+        List<Customer> customerList = null;
+
+        try {
+            // Create a query to select customers with the specified first name
+            Query customerQuery = session.createQuery(
+                    "from Customer c where c.firstName = :firstName", Customer.class
+            );
+            customerQuery.setParameter("firstName", firstName);
+
+            // Execute the query and retrieve the result list
+            customerList = customerQuery.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace(); // Consider replacing with logger.error("Error retrieving customers by name", e);
+        } finally {
+            // Ensure the session is closed after the operation
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return customerList; // Return the retrieved customer list
+    }
+    public List<Customer> getCustomerByLessThanAge(int age) {
+        // Initialize the session
+        Session session = sessionFactory.openSession();
+        List<Customer> customerList = null;
+
+        try {
+            // Create a query to select customers with age less than the specified value
+            Query customerQuery = session.createQuery(
+                    "from Customer c where c.age < :age", Customer.class
+            );
+            customerQuery.setParameter("age", age);
+
+            // Execute the query and retrieve the result list
+            customerList = customerQuery.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace(); // Consider replacing with logger.error("Error retrieving customers by age", e);
+        } finally {
+            // Ensure the session is closed after the operation
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return customerList; // Return the retrieved customer list
+    }
+    public List<Customer> getCustomerOfGivenAge(int age) {
+        // Initialize session
+        Session session = sessionFactory.openSession();
+        List<Customer> customerList = null;
+
+        try {
+            // Create HQL query to fetch customers of the specified age
+            Query customerQuery = session.createQuery(
+                    "from Customer c where c.age = :age", Customer.class
+            );
+            customerQuery.setParameter("age", age);
+
+            // Execute the query and retrieve the results
+            customerList = customerQuery.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace(); // Replace with a logger in a production setting
+        } finally {
+            // Ensure the session is closed after the operation to release resources
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return customerList; // Return the list of customers matching the age criteria
     }
 
 }

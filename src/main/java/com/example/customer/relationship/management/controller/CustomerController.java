@@ -52,6 +52,18 @@ public class CustomerController {
     public String deleteCustomerByID(@PathVariable int id){
         return customerService.deleteCustomerByID(id);
     }
+    @GetMapping("/getUsersByFirstName/{firstName}")
+    public List<Customer> getCustomerListByFirstName(@PathVariable String firstName){
+        return customerService.getCustomerByFirstName(firstName);
+    }
+    @GetMapping("/getALlCustomerLessThen/{age}")
+    public List<Customer> getCustomerLessThen(@PathVariable int age){
+        return customerService.getCustomerByLessAge(age);
+    }
+    @GetMapping("/getCustomersOfAge/{age}")
+    public List<Customer> getCustomerOfAge(@PathVariable int age){
+        return customerService.getCustomerByAge(age);
+    }
 }
 
 

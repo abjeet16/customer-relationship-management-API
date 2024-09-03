@@ -12,4 +12,7 @@ public interface CustomerService {
     String insertMultipleCustomers(List<Customer> customerList);
     String updateCustomerDetails(Customer customer);
     String deleteCustomerByID(int id);
+    List<Customer> getCustomerByFirstName(String firstName);
+    List<Customer> getCustomerByLessAge(int age);
+    List<Customer> getCustomerByAge(int age);
 }
