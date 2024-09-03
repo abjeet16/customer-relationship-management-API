@@ -8,4 +8,6 @@ public interface CustomerService {
 
     String insertCustomer(Customer customer);
     List<Customer> getCustomerList();
+    Customer getCustomerByID(int id);
+    String insertMultipleCustomers(List<Customer> customerList);
 }

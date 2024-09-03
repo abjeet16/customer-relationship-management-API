@@ -53,6 +53,31 @@ public class CustomerDao {
         }
         return customers;
     }
+
+    public Customer getCustomerByID(int id){
+        Session session = sessionFactory.openSession();
+        // get returns null if object not found
+        // load returns objectNotFoundException if object not found
+        return session.get(Customer.class,id);
+    }
+
+    public String insertMultipleCustomer(List<Customer> customerList){
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        for(Customer customer:customerList){
+            session.save(customer);
+        }
+        transaction.commit();
+        session.close();
+
+        return "adding customers done";
+    }
+
+    public String updateCustomerData(Customer customer){
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+    }
 }
 
 

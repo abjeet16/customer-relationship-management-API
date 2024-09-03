@@ -35,6 +35,15 @@ public class CustomerController {
     public List<Customer> getCustomerList(){
         return customerService.getCustomerList();
     }
+    @GetMapping("/{id}")
+    //@PathVariable takes the variable value passed in the path
+    public Customer getCustomerByID(@PathVariable int id){
+        return customerService.getCustomerByID(id);
+    }
+    @PostMapping("/insertMultipleCustomer")
+    public String insertMultipleCustomer(@RequestBody List<Customer> customerList){
+        return customerService.insertMultipleCustomers(customerList);
+    }
 }
 
 
