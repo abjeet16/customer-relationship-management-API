@@ -20,11 +20,9 @@ public class CustomerDao {
         this.sessionFactory = sessionFactory;
     }
 
-    // Method to insert a customer into the database.
     public String insertCustomer(Customer customer){
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-
         try {
             session.save(customer);
             transaction.commit();
@@ -37,16 +35,13 @@ public class CustomerDao {
         } finally {
             session.close();
         }
-
         return "Customer insert done";
     }
 
-    // Method to retrieve a list of all customers.
     public List<Customer> getCustomerList(){
         Session session = sessionFactory.openSession();
         List<Customer> customers = null;
         try {
-            // Use Hibernate query language (HQL) to retrieve customers.
             customers = session.createQuery("from Customer", Customer.class).list();
         } finally {
             session.close();
@@ -56,28 +51,57 @@ public class CustomerDao {
 
     public Customer getCustomerByID(int id){
         Session session = sessionFactory.openSession();
-        // get returns null if object not found
-        // load returns objectNotFoundException if object not found
-        return session.get(Customer.class,id);
+        Customer customer = null;
+        try {
+            customer = session.get(Customer.class, id);
+        } finally {
+            session.close();
+        }
+        return customer;
     }
 
     public String insertMultipleCustomer(List<Customer> customerList){
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        for(Customer customer:customerList){
-            session.save(customer);
+        try {
+            for(int i = 0; i < customerList.size(); i++){
+                session.save(customerList.get(i));
+                if (i % 20 == 0) { // Flush and clear session in batches to manage memory
+                    session.flush();
+                    session.clear();
+                }
+            }
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return "Error adding customers";
+        } finally {
+            session.close();
         }
-        transaction.commit();
-        session.close();
-
-        return "adding customers done";
+        return "Adding customers done";
     }
 
     public String updateCustomerData(Customer customer){
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-
+        try {
+            session.update(customer);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return "Error updating customer";
+        } finally {
+            session.close();
+        }
+        return "Customer details updated";
     }
 }
+
 
 

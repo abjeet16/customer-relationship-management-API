@@ -37,5 +37,10 @@ public class CustomerServiceImpl implements CustomerService {
     public String insertMultipleCustomers(List<Customer> customerList) {
         return customerDao.insertMultipleCustomer(customerList);
     }
+
+    @Override
+    public String updateCustomerDetails(Customer customer) {
+        return customerDao.updateCustomerData(customer);
+    }
 }
 

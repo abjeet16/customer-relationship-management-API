@@ -44,6 +44,11 @@ public class CustomerController {
     public String insertMultipleCustomer(@RequestBody List<Customer> customerList){
         return customerService.insertMultipleCustomers(customerList);
     }
+    @PutMapping("/updateCustomerDetail")
+    public String updateCustomerDetail(@RequestBody Customer customer){
+        return customerService.updateCustomerDetails(customer);
+    }
+
 }
 
 
