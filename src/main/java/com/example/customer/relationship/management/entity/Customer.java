@@ -29,16 +29,21 @@ public class Customer {
     @Column(name = "mobile_number")
     private String mobileNumber;
 
+    private String password;
+    private String gender;
+
     // This field does not have a @Column annotation, so it will be mapped to a column named 'age' by default.
     private int age;
 
     // Constructor with all fields to initialize the entity with data.
-    public Customer(int id, String firstName, String lastName, String email, String mobileNumber, int age) {
+    public Customer(int id, String firstName, String lastName, String email, String mobileNumber, String password, String gender, int age) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.mobileNumber = mobileNumber;
+        this.password = password;
+        this.gender = gender;
         this.age = age;
     }
 
@@ -97,6 +102,22 @@ public class Customer {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }
 
